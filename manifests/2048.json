@@ -1,0 +1,15 @@
+{
+    "name": "2048",
+    "developer": "Solebon LLC",
+    "description": "Join the numbers and get to the 2048 tile!",
+    "icon": "images/2048/icon.png",
+    "screenshots": [
+        "images/2048/1.png",
+        "images/2048/2.png"
+    ],
+    "rating": "4.6",
+    "reviews": "30.8K",
+    "downloads": "1M",
+    "content_rating": "Everyone",
+    "install_url": "apps/2048/index.html"
+}

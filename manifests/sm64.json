@@ -1,0 +1,15 @@
+{
+    "name": "Super Mario 64",
+    "developer": "Nintendo 64 Decompilation Projects",
+    "description": "Super Mario 64 is a 3D platformer in which the player controls Mario through various courses. Mario's abilities are far more diverse than in previous games. He can walk, run, jump, crouch, crawl, climb, swim, kick, grab objects, and punch using the game controller's analog stick and buttons.",
+    "icon": "images/SM64/icon.png",
+    "screenshots": [
+        "images/SM64/1.png",
+        "images/SM64/2.png"
+    ],
+    "rating": "4.6",
+    "reviews": "30.8K",
+    "downloads": "1M",
+    "content_rating": "Everyone",
+    "install_url": "apps/SM64/index.html"
+}

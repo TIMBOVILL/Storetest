@@ -1,0 +1,15 @@
+{
+    "name": "Stack",
+    "developer": "Ketchapp",
+    "description": "Stack up the blocks as high as you can! ◉ Simple & Beautiful graphics designed ◉ Compete for the best score in the world",
+    "icon": "images/stack/icon.png",
+    "screenshots": [
+        "images/stack/1.png",
+        "images/stack/2.png"
+    ],
+    "rating": "3.9",
+    "reviews": "30.8K",
+    "downloads": "50M+",
+    "content_rating": "Everyone",
+    "install_url": "apps/Stack/index.html"
+}
