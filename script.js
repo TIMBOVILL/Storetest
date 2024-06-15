@@ -49,23 +49,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     const installUrl = data.install_url;
 
-                    if (installButton && installUrl) {
-                        installButton.addEventListener('click', () => {
-                            if (deferredPrompt) {
-                                deferredPrompt.prompt();
-                                deferredPrompt.userChoice.then((choiceResult) => {
-                                    if (choiceResult.outcome === 'accepted') {
-                                        console.log('User accepted the install prompt');
-                                    } else {
-                                        console.log('User dismissed the install prompt');
-                                    }
-                                    deferredPrompt = null;
-                                });
-                            } else {
-                                window.location.href = installUrl;
-                            }
-                        });
-                    }
+                    installButton.addEventListener('click', () => {
+                        if (deferredPrompt) {
+                            deferredPrompt.prompt();
+                            deferredPrompt.userChoice.then((choiceResult) => {
+                                if (choiceResult.outcome === 'accepted') {
+                                    console.log('User accepted the install prompt');
+                                } else {
+                                    console.log('User dismissed the install prompt');
+                                }
+                                deferredPrompt = null;
+                            });
+                        } else {
+                            window.location.href = installUrl;
+                        }
+                    });
 
                     const screenshots = data.screenshots.map(src => `<img src="${src}" alt="Screenshot">`).join('');
                     appDetails.innerHTML = `
