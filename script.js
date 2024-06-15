@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     appCard.innerHTML = `
                         <img src="${data.icon}" alt="${data.name}">
                         <h3>${data.name}</h3>
+                        <h3>${data.developer}</h3>
                     `;
                     appCard.addEventListener('click', () => {
                         window.location.href = `app.html?manifest=${manifest}`;
