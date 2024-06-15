@@ -47,8 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     installButton.textContent = 'Install';
                     installButton.className = 'install-button';
 
-                    const installUrl = data.install_url;
-
                     installButton.addEventListener('click', () => {
                         if (deferredPrompt) {
                             deferredPrompt.prompt();
@@ -61,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 deferredPrompt = null;
                             });
                         } else {
-                            window.location.href = installUrl;
+                            window.location.href = data.install_url;
                         }
                     });
 
