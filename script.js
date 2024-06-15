@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const appGrid = document.getElementById('app-grid');
     const appDetails = document.getElementById('app-details');
-    const manifests = ['manifests/2048.json', 'manifests/stack.json', 'manifests/Mania.json', 'manifests/sm64.json'];
+    const manifests = ['manifests/2048.json', 'manifests/stack.json', 'manifests/mania.json', 'manifests/sm64.json'];
 
     if (appGrid) {
         manifests.forEach(manifest => {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     appCard.innerHTML = `
                         <img src="${data.icon}" alt="${data.name}">
                         <h3>${data.name}</h3>
-                        <h3>${data.developer}</h3>
+                        <h2>${data.developer}</h2>
                     `;
                     appCard.addEventListener('click', () => {
                         window.location.href = `app.html?manifest=${manifest}`;

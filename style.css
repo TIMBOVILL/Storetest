@@ -2,7 +2,7 @@ body {
     font-family: Google, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #201f24;
+    background-color: #131313;
     color: #ffffff;
 }
 
@@ -10,7 +10,7 @@ header {
     display: flex;
     align-items: center;
     padding: 10px 20px;
-    background-color: #201f24;
+    background-color: #131313;
 }
 
 .logo {
@@ -21,8 +21,8 @@ header {
     flex: 1;
     padding: 10px;
     margin-left: 20px;
+    background-color: #282A2C;
     font-size: 16px;
-    border: 1px solid #ddd;
     border-radius: 20px;
 }
 
@@ -40,7 +40,7 @@ main {
     border-radius: 8px;
     padding: 10px;
     text-align: Left;
-    background-color: #201f24;
+    background-color: #131313;
     cursor: pointer;
     transition: box-shadow 0.3s;
 }
@@ -58,7 +58,7 @@ main {
     margin: 20px auto;
     padding: 20px;
     border-radius: 8px;
-    background-color: #201f24;
+    background-color: #131313;
     position: relative;
 }
 
@@ -76,12 +76,12 @@ main {
 }
 
 #app-details .app-icon {
-    width: 120px;  /* Increased the size */
-    height: 120px;  /* Increased the size */
+    width: 120px;
+    height: 120px;
     position: absolute;
     border-radius: 24px;
-    top: 50px;  /* Adjusted the position */
-    right: 20px;  /* Positioned on the right */
+    top: 50px; 
+    right: 20px;
 }
 
 #app-details h1 {
@@ -90,7 +90,7 @@ main {
 }
 
 #app-details p {
-    color: #201f24;
+    color: #131313;
 }
 
 #app-details .install-button {
@@ -98,8 +98,8 @@ main {
     padding: 10px 20px;
     font-size: 16px;
     text-align: center;
-    background-color: #34a853;
-    color: white;
+    background-color: #01A173;
+    color: 131313;
     text-decoration: none;
     margin: 20px 0 20px 0;
     cursor: pointer;
@@ -147,5 +147,5 @@ main {
 }
 
 #about-this-game p {
-    color: #666;
+    color: #ffffff;
 }
