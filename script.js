@@ -1,3 +1,16 @@
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('Service Worker registered'))
+        .catch(err => console.log('Service Worker registration failed', err));
+}
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const appGrid = document.getElementById('app-grid');
     const appDetails = document.getElementById('app-details');
@@ -13,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     appCard.innerHTML = `
                         <img src="${data.icon}" alt="${data.name}">
                         <h3>${data.name}</h3>
-                        <h2>${data.developer}</h2>
                     `;
                     appCard.addEventListener('click', () => {
                         window.location.href = `app.html?manifest=${manifest}`;
@@ -31,6 +43,30 @@ document.addEventListener('DOMContentLoaded', function() {
             fetch(manifest)
                 .then(response => response.json())
                 .then(data => {
+                    const installButton = document.createElement('button');
+                    installButton.textContent = 'Install';
+                    installButton.className = 'install-button';
+
+                    const installUrl = data.install_url;
+
+                    if (installButton && installUrl) {
+                        installButton.addEventListener('click', () => {
+                            if (deferredPrompt) {
+                                deferredPrompt.prompt();
+                                deferredPrompt.userChoice.then((choiceResult) => {
+                                    if (choiceResult.outcome === 'accepted') {
+                                        console.log('User accepted the install prompt');
+                                    } else {
+                                        console.log('User dismissed the install prompt');
+                                    }
+                                    deferredPrompt = null;
+                                });
+                            } else {
+                                window.location.href = installUrl;
+                            }
+                        });
+                    }
+
                     const screenshots = data.screenshots.map(src => `<img src="${src}" alt="Screenshot">`).join('');
                     appDetails.innerHTML = `
                         <div class="background" style="background-image: url(${data.background});"></div>
@@ -43,20 +79,20 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <span>(${data.reviews} reviews)</span>
                             </div>
                             <div class="app-downloads">
-                                <span>${data.downloads}+</span>
-                                <span>Downloads</span>
-                            </div>
-                            <div class="app-content-rating">
-                                <span>${data.content_rating}</span>
+                                <span>${data.downloads}</span>
                             </div>
                         </div>
-                        <a href="${data.install_url}" class="install-button">Install</a>
-                        <div class="screenshots">${screenshots}</div>
-                        <div id="about-this-game">
+                        <div class="install-section"></div>
+                        <div class="screenshots">
+                            ${screenshots}
+                        </div>
+                        <div class="about-section">
                             <h2>About this game</h2>
                             <p>${data.description}</p>
                         </div>
                     `;
+
+                    document.querySelector('.install-section').appendChild(installButton);
                 });
         }
     }

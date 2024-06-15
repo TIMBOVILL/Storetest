@@ -3,18 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Details</title>
     <link rel="stylesheet" href="style.css">
+    <title>App Details</title>
 </head>
 <body>
-    <header>
-        <img src="images/logo.png" alt="Logo" class="logo">
-    </header>
-    <main>
-        <div id="app-details">
-            <!-- App details will be loaded here by script.js -->
-        </div>
+    <main id="app-details">
+        <!-- App details will be populated here -->
     </main>
     <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(() => console.log('Service Worker registered'))
+                .catch(err => console.log('Service Worker registration failed', err));
+        }
+
+        let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const manifest = urlParams.get('manifest');
+
+            if (manifest) {
+                fetch(manifest)
+                    .then(response => response.json())
+                    .then(data => {
+                        const installButton = document.querySelector('.install-button');
+                        const installUrl = data.install_url;
+
+                        if (installButton && installUrl) {
+                            installButton.addEventListener('click', () => {
+                                if (deferredPrompt) {
+                                    deferredPrompt.prompt();
+                                    deferredPrompt.userChoice.then((choiceResult) => {
+                                        if (choiceResult.outcome === 'accepted') {
+                                            console.log('User accepted the install prompt');
+                                        } else {
+                                            console.log('User dismissed the install prompt');
+                                        }
+                                        deferredPrompt = null;
+                                    });
+                                } else {
+                                    window.location.href = installUrl;
+                                }
+                            });
+                        }
+
+                        const screenshots = data.screenshots.map(src => `<img src="${src}" alt="Screenshot">`).join('');
+                        document.getElementById('app-details').innerHTML = `
+                            <div class="background" style="background-image: url(${data.background});"></div>
+                            <img src="${data.icon}" alt="${data.name}" class="app-icon">
+                            <h1>${data.name}</h1>
+                            <p>${data.developer}</p>
+                            <div class="app-metadata">
+                                <div class="app-rating">
+                                    <span>${data.rating}</span> ★
+                                    <span>(${data.reviews} reviews)</span>
+                                </div>
+                                <div class="app-downloads">
+                                    <span>${data.downloads}</span>
+                                </div>
+                            </div>
+                            <div class="install-section">
+                                <button class="install-button">Install</button>
+                            </div>
+                            <div class="screenshots">
+                                ${screenshots}
+                            </div>
+                            <div class="about-section">
+                                <h2>About this game</h2>
+                                <p>${data.description}</p>
+                            </div>
+                        `;
+                    });
+            }
+        });
+    </script>
 </body>
 </html>
